@@ -7,6 +7,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Locale;
 
+/**
+ * https://www.urionlinejudge.com.br/judge/pt/problems/view/1547
+ * @author felipe
+ */
 public class URI1547 {
     public static void main(String[] args) throws IOException {
         Locale.setDefault(Locale.US);
