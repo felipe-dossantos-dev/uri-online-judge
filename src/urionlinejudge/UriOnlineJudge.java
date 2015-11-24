@@ -5,9 +5,11 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.Arrays;
 import java.util.Locale;
-
+/**
+ * https://www.urionlinejudge.com.br/judge/pt/problems/view/1779
+ * @author felipe.santos
+ */
 public class UriOnlineJudge {
 
     public static void main(String[] args) throws IOException {
@@ -16,53 +18,39 @@ public class UriOnlineJudge {
                 System.in));
         BufferedWriter saida = new BufferedWriter(new OutputStreamWriter(
                 System.out));
-        int qtd = Integer.parseInt(entrada.readLine());
-        while (qtd != 0) {
-            long[] somas = new long[qtd];
-            int[] valores = new int[qtd];
-            String nomes[] = new String[qtd];
-
-            for (int i = 0; i < qtd; i++) {
-                String linha = entrada.readLine();
-                nomes[i] = linha;
-                int valor = 0;
-                char letras[] = linha.toCharArray();
-                for (char letra : letras) {
-                    valor += letra;
-                }
-                valores[i] = valor;
-                if (i == 0) {
-                    somas[i] = valor;
+        String linha = entrada.readLine();
+        int qtdCasos = Integer.parseInt(linha);
+        for (int i = 0; i < qtdCasos; i++) {
+            linha = entrada.readLine();
+            int qtdProvas = Integer.parseInt(linha);
+            linha = entrada.readLine();
+            String vet[] = linha.split(" ");
+            //transformar o vetor em ints
+            //fazer a media geral
+            int maiorValor = 0;
+            int contMaiorSeq = 0;
+            int contAtual = 1;
+            int anterior = -1;
+            int tmp = -1;
+            for (int j = 0; j < qtdProvas; j++) {
+                tmp = Integer.parseInt(vet[j]);
+                if (tmp != anterior) {
+                    if (tmp > maiorValor) {
+                        maiorValor = tmp;
+                        contMaiorSeq = contAtual;
+                    } else if (anterior == maiorValor) {
+                        contMaiorSeq = contAtual;
+                    }
+                    contAtual = 1;
                 } else {
-                    somas[i] = somas[i - 1] + valor;
+                    contAtual++;
                 }
+                anterior = tmp;
             }
-            //buscas
-            long busca = somas[qtd - 1] / 2 + 1;
-            int busca2 = Arrays.binarySearch(somas, busca);
-            if (busca2 < 0)
-                busca2 += qtd;
-            if (busca > somas[busca2])
-                busca2++;
-
-            long timeA = 0;
-            int cont = 1;
-            for (int i = busca2; i >=0 ; i--) {
-                timeA += valores[i] * cont;
-                cont++;
+            if (tmp == maiorValor && contAtual > contMaiorSeq) {
+                contMaiorSeq = contAtual;
             }
-            long timeB = 0;
-            cont = 1;
-            for (int i = busca2 + 1; i < qtd; i++) {
-                timeB += valores[i] * cont;
-                cont++;
-            }
-            if (timeB != timeA) {
-                saida.write("Impossibilidade de empate.\n");
-            } else {
-                saida.write(nomes[busca2] + "\n");
-            }
-            qtd = Integer.parseInt(entrada.readLine());
+            saida.write("Caso #" + (i + 1) + ": " + contMaiorSeq + "\n");
         }
         saida.flush();
     }
