@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Locale;
+
 /**
  * https://www.urionlinejudge.com.br/judge/pt/problems/view/1779
+ *
  * @author felipe.santos
  */
 public class UriOnlineJudge {
@@ -27,28 +29,26 @@ public class UriOnlineJudge {
             String vet[] = linha.split(" ");
             //transformar o vetor em ints
             //fazer a media geral
-            int maiorValor = 0;
-            int contMaiorSeq = 0;
+            int tmp = Integer.parseInt(vet[0]);
+            int maiorValor = tmp;
+            int contMaiorSeq = 1;
             int contAtual = 1;
-            int anterior = -1;
-            int tmp = -1;
-            for (int j = 0; j < qtdProvas; j++) {
+            int anterior = tmp;
+            for (int j = 1; j < qtdProvas; j++) {
                 tmp = Integer.parseInt(vet[j]);
-                if (tmp != anterior) {
-                    if (tmp > maiorValor) {
-                        maiorValor = tmp;
-                        contMaiorSeq = contAtual;
-                    } else if (anterior == maiorValor) {
+                if (tmp == anterior) {
+                    contAtual++;
+                    if (tmp == maiorValor && contAtual > contMaiorSeq) {
                         contMaiorSeq = contAtual;
                     }
+                } else if (tmp > maiorValor) {
+                    maiorValor = tmp;
+                    contMaiorSeq = 1;
                     contAtual = 1;
                 } else {
-                    contAtual++;
+                    contAtual = 1;
                 }
                 anterior = tmp;
-            }
-            if (tmp == maiorValor && contAtual > contMaiorSeq) {
-                contMaiorSeq = contAtual;
             }
             saida.write("Caso #" + (i + 1) + ": " + contMaiorSeq + "\n");
         }
