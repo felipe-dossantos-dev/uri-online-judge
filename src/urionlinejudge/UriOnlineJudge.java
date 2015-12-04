@@ -16,7 +16,17 @@ public class UriOnlineJudge {
         BufferedWriter saida = new BufferedWriter(new OutputStreamWriter(
                 System.out));
         String linha = entrada.readLine();
-        
+        int qtdTestes = Integer.parseInt(linha);
+        while (qtdTestes != 0) {
+            for (int i = 0; i < qtdTestes; i++) {
+                linha = entrada.readLine();
+                String vet[] = linha.split(" ");
+                
+            }
+
+            linha = entrada.readLine();
+            qtdTestes = Integer.parseInt(linha);
+        }
         saida.flush();
     }
 }
