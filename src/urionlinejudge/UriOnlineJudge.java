@@ -21,6 +21,7 @@ public class UriOnlineJudge {
                 System.out));
         String linha = entrada.readLine();
         conjunto = new TreeSet<>();
+        //1556
         while (linha != null) {
             subs(linha, "", 0);
             for (String ord : conjunto) {
